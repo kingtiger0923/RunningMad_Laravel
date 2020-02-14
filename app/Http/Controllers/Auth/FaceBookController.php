@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use Exception;
 use Auth;
+use App\Customer;
 
 class FaceBookController extends Controller
 {
@@ -33,7 +34,7 @@ class FaceBookController extends Controller
             
             $createdUser = $this->userFindorCreate( $userInfo );
             Auth::loginUsingId($createdUser->id);
-            return redirect('/about');
+            return redirect('/dashboard');
         } catch (Exception $e) {
             error_log("Error: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             error_log($e);
@@ -51,6 +52,24 @@ class FaceBookController extends Controller
                 'email' => $facebook_user->email,
                 'password' => bcrypt('123456'),
             ]);
+
+            Customer::create([
+                'user_id' => $user->id,
+                'address' => "none",
+                'city' => "none",
+                'postcode' => "none",
+                'country' => "none",
+                'phone' => "none",
+            ]);
+    
+            $sender_name =  $facebook_user->name;
+            $sender_email = $facebook_user->email;
+    
+            Mail::send('emails.registration', array('data'=>$facebook_user), function ($message) use ($sender_name, $sender_email) {
+                $message->from('hello@runningmad.co.uk', 'Runningmad');
+                $message->subject('Welcome to Runningmad');
+                $message->to($sender_email);
+            });
         }
 
         return $user;

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use Exception;
 use Auth;
+use App\Customer;
 
 class GoogleController extends Controller
 {
@@ -33,7 +34,7 @@ class GoogleController extends Controller
 
             $createdUser = $this->userFindorCreate( $userInfo );
             Auth::loginUsingId($createdUser->id);
-            return redirect('/about');
+            return redirect('/dashboard');
         } catch (Exception $e) {
             error_log("Error: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             error_log($e);
@@ -51,6 +52,24 @@ class GoogleController extends Controller
                 'email' => $google_user->email,
                 'password' => bcrypt('123456'),
             ]);
+            
+            Customer::create([
+                'user_id' => $user->id,
+                'address' => "none",
+                'city' => "none",
+                'postcode' => "none",
+                'country' => "none",
+                'phone' => "none",
+            ]);
+    
+            $sender_name =  $google_user->name;
+            $sender_email = $google_user->email;
+    
+            Mail::send('emails.registration', array('data'=>$google_user), function ($message) use ($sender_name, $sender_email) {
+                $message->from('hello@runningmad.co.uk', 'Runningmad');
+                $message->subject('Welcome to Runningmad');
+                $message->to($sender_email);
+            });
         }
 
         return $user;

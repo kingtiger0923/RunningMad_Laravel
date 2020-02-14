@@ -1603,6 +1603,63 @@ img.mobile-slide-img{
     display: inline;
 }
 
+.btn-login-with-google {
+    margin-top: 20px;
+    border-radius: 0px;
+    width: 100%;
+    background-color: #3f85f3;
+}
+
+.btn-login-with-facebook {
+    margin-top: 20px;
+    border-radius: 0px;
+    width: 100%;
+    background-color: #3f5daf;
+}
+
+.btn-login-with-google a, 
+.btn-login-with-facebook a{
+    text-align: center;
+    font-size: 1.1em;
+    vertical-align: sub;
+    color: white;
+    font-weight: 505;
+    padding-left: 20px;
+}
+
+.btn-login-with-google i, 
+.btn-login-with-facebook i{
+    color: white; 
+    float: left; 
+    padding-left: 10px;
+}
+
+.btn-login-with-google:hover, 
+.btn-login-with-facebook:hover{
+    opacity: 0.9;
+}
+
+.custom-title-login {
+    font-size: 1.5em;
+    text-align: center;
+    width: 100%;
+    color: black;
+}
+
+.btn-login {
+    font-size: 1.1em;
+    color: white;
+    font-weight: bold;
+    background-color: #007bff;
+    width: 100%;
+    border-radius: 0px;
+}
+
+.btn-login:hover {
+    opacity: 0.9;
+    color: white;
+}
+
 
 /*New register page*/
 .custom-register .login-register-content{

@@ -22,11 +22,15 @@
                             <div class="login-register-content">
                                 <div class="login-register-form-wrap">
                                     <!-- <form action="#" method="post"> -->
-                                    <h1> Sign in to Running Mad </h1>
+                                    <h1 class="custom-title-login"> Create Your Free Account </h1>
                                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                                     {{ csrf_field() }}
-                                        <button class="btn btn-primary" style="padding-top:20px; color:white;"><a href="/login/google">Sign in with Google</a></button>
-                                        <button class="btn btn-primary"><a href="/login/facebook">Sign in with FaceBook</a></button>
+                                        <div class="custom-row">
+                                            <button class="btn btn-login-with-google"><i class="fab fa-google-plus-square fa-2x" ></i><a href="/login/google">Sign in with Google</a></button>
+                                        </div>
+                                        <div class="custom-row">
+                                            <button class="btn btn-login-with-facebook"><i class="fab fa-facebook-square fa-2x" ></i><a href="/login/facebook">Sign in with FaceBook</a></button>
+                                        </div>
                                         <div class="custom-row form-group{{ $errors->has('email') ? ' has-error' : '' }}">  
                                             <label>Email address</label>
                                             <input type="text" class="inputBx form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="example@example.com"> 
@@ -45,11 +49,12 @@
                                             </span>
                                         @endif
                                         </div>
-                                        <div class="btn-wrap-row">
-                                            <button type="submit" class="btn-wrap btnslideL"><span>Login</span></button>
+                                        
+                                        <div class="custom-row">
+                                            <button type="submit" class="btn btn-login">Login</button>
                                         </div>
                                         <div class="custom-row">
-                                            <label class="register-txt"><a href="{{route('register')}}">Register now</a></label> 
+                                            <label class="register-txt"><a href="{{route('register')}}">Register now</a></label>
                                         </div>
                                         <div class="custom-row forgot-password">
                                             <label class="forgot-password-txt"><a href="{{ route('password.request') }}">Forgot your password?</a></label> 
