@@ -21,6 +21,7 @@ use App\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use URL;
+use MaddHatter\LaravelFullcalendar\Facades\Calendar;
 
 
 class DashboardController extends Controller
@@ -54,7 +55,8 @@ class DashboardController extends Controller
     public function show($orderId)
     { 
         $order = Order::where('id', '=', $orderId)->where('user_id', '=', Auth::id())->firstOrFail();
-        return view('order')->with(array('order'=> $order ));
+
+        return view('order', compact('order'));
     }
 
     /**

@@ -24,6 +24,13 @@
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('css/magnific-popup.css') }}">
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" type="text/css" media="all" href="{{ asset('css/responsive.css') }}">
+
+    {{-- Calendar CSS & JS --}}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         window.Laravel = {!! json_encode([

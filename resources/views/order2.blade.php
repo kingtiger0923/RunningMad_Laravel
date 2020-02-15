@@ -2,28 +2,6 @@
 
 @section('content')
 <!--Begin Banner Section-->
-
-<?php
-  if( !isset($cur_month) ) {
-    $cur_month = date('m');
-    $cur_year  = date('y');
-    $month_str = [
-      "01" => "January",
-      "02" => "February",
-      "03" => "March",
-      "04" => "April",
-      "05" => "May",
-      "06" => "June",
-      "07" => "July",
-      "08" => "August",
-      "09" => "September",
-      "10" => "October",
-      "11" => "November",
-      "12" => "December"
-    ];
-  }
-?>
-
 <section class="single-banner small-banner clear">
     <div class="container">
         <div class="row">
@@ -119,8 +97,29 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="evidence-container" id="mycalendar">
-                          
+                        <div class="evidence-container">
+                            <h2>Evidence</h2>
+                            <ul>
+                                @php $evidencefiles = json_decode($order->evidence, true); @endphp
+                                @if($evidencefiles)
+                                @foreach($evidencefiles as $efile)
+                                <li>
+                                    <div class="evidence-item-wrap">
+                                        <div class="uploaded_image">
+                                            @if (strpos($efile, 'pdf') !== false)
+                                                <img src="{{URL::to('/')}}/images/pdf-placeholder.png" class="img-thumbnail" alt="Evidence">
+                                                <a href="{{URL::to('/')}}/public/evidence/{{ $efile }}" download="{{ $efile}}"><span><i class="fas fa-download"></i></span> Download</a>
+                                            @else
+                                                <img src="{{URL::to('/')}}/public/evidence/{{ $efile }}" class="img-thumbnail"  alt="Evidence">
+                                                <a href="{{URL::to('/')}}/public/evidence/{{ $efile }}" download>
+                                                <span><i class="fas fa-download"></i></span> {{ __('voyager::generic.download') }}</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </li>
+                                @endforeach
+                                @endif
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -179,35 +178,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-      var current_month = "<?php echo $month_str[$cur_month]; ?>";
-      var current_year  = "<?php echo $cur_year; ?>";
-      var month_offset = 0;
-      $(document).ready(function(){
-        update();
-      });
-
-      function update() {
-        var text_html="";
-        
-        text_html += '<h2>Evidence</h2><table id="calendar"><caption><div class="row"><div class="col-md-3" onclick="previousMonth();"></div><div class="col-md-6"><p class="calendar-caption"><?php echo $cur_month; ?></p><p class="calendar-caption" style="color:#f47921; font-weight:bold;"><?php echo $month_str[$cur_month]; ?></p><p class="calendar-caption-year">2019</p></div><div class="col-md-3"></div></div></caption>';
-
-        text_html += '<tr class="weekdays"><th scope="col">Sunday</th><th scope="col">Monday</th><th scope="col">Tuesday</th><th scope="col">Wednesday</th><th scope="col">Thursday</th><th scope="col">Friday</th><th scope="col">Saturday</th></tr>';
-
-        var Selected_date = new Date(current_month + " 2, " + current_year);
-        var dayOfWeek = Selected_date.getDay();
-
-        for( i = 0; i < dayOfWeek; i ++ )
-        {
-          //
-        }
-
-        $('#mycalendar').html(text_html);
-      }
-
-      function previousMonth() {
-        month_offset ++;
-      }
-    </script>
 </section><!--// End Dashboard Section -->
 @endsection
