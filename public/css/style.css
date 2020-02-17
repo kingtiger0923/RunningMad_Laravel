@@ -2077,7 +2077,7 @@ caption {
 }
 
 #calendar td {
-    min-height: 180px;
+    min-height: 100px;
     display: flex;
     flex-direction: column;
 }
@@ -2087,11 +2087,11 @@ caption {
 }
 
 #calendar .date {
-    text-align: center;
+    text-align: right;
     margin-bottom: 5px;
-    padding: 4px;
+    padding: 4px 10px 0px 0px;
     color: black;
-    width: 20px;
+    width: 100%;
     flex: 0 0 auto;
     align-self: flex-end;
 }
@@ -2131,6 +2131,144 @@ caption {
     text-align: center;
     padding-top: 5px;
     padding-bottom: 0px;
+}
+
+.day .day_activity {
+    width: 100%;
+    height: 60px;
+    border: 1px solid #f47921;
+}
+
+.day_activity .day_activity-title {
+    font-size: 0.5em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 17px;
+    border: 1px solid white;
+    padding: 0px;
+    background-color: #f47921;
+}
+
+.day_activity .day_activity-value {
+    font-size: 0.5em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 17px;
+    border-bottom: 1px solid #f47921;
+    padding: 0px;
+    background-color: white;
+}
+
+.day_activity>.row {
+    margin: 0px;
+}
+
+.btn-order {
+    font-size: 0.5em;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+
+/* Popup Dialog for Order */
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+
+/* Modal Content */
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 400px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+
+/* Add Animation */
+
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+
+/* The Close Button */
+
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-body {
+    padding: 2px 16px;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
 }
 
 

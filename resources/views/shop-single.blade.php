@@ -45,7 +45,7 @@
             <div class="col-sm-8 left-column">
                 <div class="white-content">
                     <div class="race-single-content">
-                         {{$product->description}}
+                         {{-- {{$product->description}} --}}
                     </div>
                 </div>
             </div>

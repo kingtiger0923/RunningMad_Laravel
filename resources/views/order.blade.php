@@ -179,35 +179,177 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
+
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Add Distance</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row"></div>
+                <div class="row">
+                    <div class="col-md-4">Activity</div>
+                    <div class="col-md-8"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Amount</div>
+                    <div class="col-md-2"><input type="text" style="width:100%;"/></div>
+                    <div class="col-md-3">Kilometres</div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">Miles</div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">Upload Screenshot</div>
+                    <div class="col-md-6">Optional</div>
+                </div>
+                <div class="row">
+                    <input type="textarea" />
+                </div>
+            </div>
+            <div class="modal-footer">
+            <h3>Modal Footer</h3>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript"> //Calendar Script
       var current_month = "<?php echo $month_str[$cur_month]; ?>";
       var current_year  = "<?php echo $cur_year; ?>";
-      var month_offset = 0;
+      var Selected_date;
+      var month_str = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ];
+      var modal = document.getElementById("myModal");
+      var span = document.getElementsByClassName("close")[0];
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+      window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+      }
+
+      function showPopup() {
+        modal.style.display = "block";
+      }
+
       $(document).ready(function(){
+        Selected_date = new Date(current_month + " 1, " + current_year);
         update();
       });
 
       function update() {
         var text_html="";
-        
-        text_html += '<h2>Evidence</h2><table id="calendar"><caption><div class="row"><div class="col-md-3" onclick="previousMonth();"></div><div class="col-md-6"><p class="calendar-caption"><?php echo $cur_month; ?></p><p class="calendar-caption" style="color:#f47921; font-weight:bold;"><?php echo $month_str[$cur_month]; ?></p><p class="calendar-caption-year">2019</p></div><div class="col-md-3"></div></div></caption>';
-
-        text_html += '<tr class="weekdays"><th scope="col">Sunday</th><th scope="col">Monday</th><th scope="col">Tuesday</th><th scope="col">Wednesday</th><th scope="col">Thursday</th><th scope="col">Friday</th><th scope="col">Saturday</th></tr>';
-
-        var Selected_date = new Date(current_month + " 2, " + current_year);
+        var i = 0, j = 0;
         var dayOfWeek = Selected_date.getDay();
+        var Selected_Month= Selected_date.getMonth();
+        var Selected_Year = Selected_date.getFullYear();
+        var Order_Date = new Date("<?php echo $order->created_at ?>");
+        //Caption
+        text_html += '<h2>Evidence</h2><table id="calendar"><caption><div class="row"><div class="col-md-3" onclick="previousMonth();"></div><div class="col-md-6"><p class="calendar-caption">';
+        if( Selected_Month < 9 ) text_html += '0';
+        text_html += (Selected_Month + 1);
+        text_html += '</p><p class="calendar-caption" style="color:#f47921; font-weight:bold;">';
+        text_html += month_str[Selected_Month];
+        text_html += '</p><p class="calendar-caption-year">';
+        text_html += Selected_Year;
+        text_html += '</p></div><div class="col-md-3"></div></div></caption>';
+        text_html += '<tr class="weekdays"><th scope="col">Sunday</th><th scope="col">Monday</th><th scope="col">Tuesday</th><th scope="col">Wednesday</th><th scope="col">Thursday</th><th scope="col">Friday</th><th scope="col">Saturday</th></tr>';
+        //End Caption
 
-        for( i = 0; i < dayOfWeek; i ++ )
+        //Days Start
+        Selected_date.setDate(Selected_date.getDate() - dayOfWeek);
+        for( i = 0; ; i ++ )
         {
-          //
+            var nowDay = Selected_date.getDate();
+            var nowMonth = Selected_date.getMonth();
+
+            if( i % 7 == 0 ) {
+                text_html += '<tr class="days">';
+            }
+
+            if( nowMonth != Selected_Month ) {
+                text_html += '<td class="day other-month" onclick="ChangeDate(' + i + ');"><div class="date">' + nowDay + '</div></td>';
+            } else {
+                text_html += '<td class="day">';
+
+                text_html += '<div class="day_activity">';
+                    text_html += '<div class="row">';
+                        text_html += '<div class="col-md-7 day_activity-title">Activity:';
+                        text_html += '</div>';
+                        text_html += '<div class="col-md-5 day_activity-value"> Cycling';
+                        text_html += '</div>';
+                    text_html += '</div>';
+                    text_html += '<div class="row">';
+                        text_html += '<div class="col-md-7 day_activity-title">Amount:';
+                        text_html += '</div>';
+                        text_html += '<div class="col-md-5 day_activity-value"> 13.1 Miles';
+                        text_html += '</div>';
+                    text_html += '</div>';
+                    text_html += '<div class="row">';
+                        text_html += '<div class="col-md-7 day_activity-title" style="font-size: 0.4em;">ScreenShot:';
+                        text_html += '</div>';
+                        text_html += '<div class="col-md-5 day_activity-value" style="border-bottom: none;"> Yes';
+                        text_html += '</div>';
+                    text_html += '</div>';
+                text_html += '</div>';
+
+                text_html += '<div class="row">'
+                    text_html += '<div class="col-md-8">';
+                        text_html += '<button type="button" class="btn btn-primary btn-order" onclick="showPopup();">Add Order</button>';
+                    text_html += '</div>';
+                    text_html += '<div class="col-md-4">';
+                        text_html += '<div class="date">';
+                        text_html += nowDay;
+                        text_html += '</div>';
+                    text_html += '</div>';
+                text_html += '</div>';
+
+                text_html += '</td>';
+            }
+
+            if( i % 7 == 6 ) {
+                text_html += '</tr>';
+            }
+            
+            if( i % 7 == 6 && i >= 20 && nowDay <= 7 ) break;
+
+            Selected_date.setDate(Selected_date.getDate() + 1);
         }
-
+        //Days End
+        text_html += "</table>";
         $('#mycalendar').html(text_html);
+
+        Selected_date.setDate(-10);
+        Selected_date.setDate(1);
       }
 
-      function previousMonth() {
-        month_offset ++;
+      function ChangeDate(index) {
+          if( index <= 10 )  { //Previous Month
+            Selected_date.setDate(-10);
+            Selected_date.setDate(1);
+          } else { //Next Month
+            Selected_date.setDate(45);
+            Selected_date.setDate(1);
+          }
+          update();
       }
+
     </script>
 </section><!--// End Dashboard Section -->
 @endsection

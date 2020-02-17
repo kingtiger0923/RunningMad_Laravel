@@ -25,7 +25,7 @@
                             <li class="col-sm-4 campaign-wrap">
                                 <div class="campaign-item-wrap campaignequalheight">
                                     <div class="thumb-wrap">
-                                        <a href="{{url('/shop-single')}}/{{$product->slug}}"><img src="{{URL::to('/')}}/storage/app/public/{{$product->thumbnail}}" alt="{{$product->title}}"></a>
+                                        <a href="{{url('/shop-single')}}"><img src="{{URL::to('/')}}/storage/app/public/{{$product->thumbnail}}" alt="{{$product->title}}"></a>
                                     </div>
                                     <div class="campaign-item-content">
                                         <div class="campaign-title">
