@@ -6,6 +6,7 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
 
 @section('content')
 
+<link rel="stylesheet" type="text/css" href="https://api.addressnow.co.uk/css/addressnow-2.20.min.css?key=tt85-jm37-zc49-nc97" />
 <!--Begin Banner Section-->
 <section class="single-banner clear" style="background: url({{URL::to('/')}}/storage/app/public/{{setting('general.banner_img')}}) no-repeat center 0; background-size: cover;">
     <div class="container">
@@ -208,24 +209,32 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                     </div>
                                     <div class="delivery-address-content">
                                         <div class="custom-row">
+                                            <div class="col-sm-12">
+                                                <div class="title-row">
+                                                    <h2>Your Address</h2>
+                                                    <input id="autocomplete" autocomplete="true" class="form-control inputBx" name="autocomplete" placeholder="Search your address" type="text"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="custom-row">
                                             <div class="col-sm-6">
                                                 <label>Shipping address</label>
-                                                <input type="text" class="inputBx" value="" placeholder="" name="shipping_address">
+                                                <input id="address" type="text" class="inputBx" value="" placeholder="" name="shipping_address">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>City</label>
-                                                <input type="text" class="inputBx" value="" placeholder="" name="shipping_city">
+                                                <input id="city" type="text" class="inputBx" value="" placeholder="" name="shipping_city">
                                             </div>
                                         </div>
                                         <div class="custom-row">
                                             <div class="col-sm-6">
                                                 <label>Post code</label>
-                                                <input type="text" class="inputBx" value="" placeholder="" name="shipping_postcode">
+                                                <input id="postalcode" type="text" class="inputBx" value="" placeholder="" name="shipping_postcode">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>Country</label>
                                                 <div class="selectBx styled-dropdown">
-                                                    <select name="shipping_country">
+                                                    <select name="shipping_country" id="countryName">
                                                         @if($countries)
                                                         @foreach($countries as $country)
                                                         <option value="{{$country}}">{{$country}}</option>
@@ -477,5 +486,27 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
         </div>
     </div>
 </section><!--// End Total Fundraised  Container -->
+
+<script type="text/javascript" src="https://api.addressnow.co.uk/js/addressnow-2.20.min.js?key=tt85-jm37-zc49-nc97"></script>
+<script>
+    addressNow.listen('load', function(control) {
+        control.listen("populate", function(address) {
+            console.log(address.CountryName);
+            document.getElementById('address').value = (address.Line1 + ' ' + address.Line2);
+            document.getElementById('postalcode').value = address.PostalCode;
+
+            var select = document.getElementById('countryName');
+
+            for ( var i = 0, l = select.options.length, o; i < l; i++ )
+            {
+                o = select.options[i];
+                if ( address.CountryName == o.text )
+                {
+                    o.selected = true;
+                }
+            }
+        });
+    });
+</script>
 
 @endsection

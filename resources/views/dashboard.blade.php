@@ -2,6 +2,8 @@
 
 @section('content')
 <!--Begin Banner Section-->
+
+<link rel="stylesheet" type="text/css" href="https://api.addressnow.co.uk/css/addressnow-2.20.min.css?key=tt85-jm37-zc49-nc97" />
 <section class="single-banner small-banner clear">
     <div class="container">
         <div class="row">
@@ -110,7 +112,7 @@
                                 </div>
                                 <div class="login-register-content dashboard-profile-update">
                                     <div class="login-register-form-wrap">
-                                        <form class="form-horizontal" method="POST" id="updateprofile" enctype="multipart/form-data">
+                                        <form class="form-horizontal" method="POST" id="updateprofile" action="updateprofile">
                                         {{ csrf_field() }}
                                             <div class="custom-row">
                                                 <div class="col-sm-6">
@@ -149,29 +151,30 @@
                                                 <div class="col-sm-12">
                                                     <div class="title-row">
                                                         <h2>Your Address</h2>
+                                                        <input id="autocomplete" autocomplete="true" class="form-control inputBx" name="autocomplete" placeholder="Search your address" type="text"/>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="custom-row">
                                                 <div class="col-sm-6">
                                                     <label>Address</label>
-                                                    <input id="autocomplete" class="form-control inputBx" name="address" placeholder="Enter your address" value="{{$delivery_address->address}}" onFocus="geolocate()" type="text"/>
+                                                    <input id="address" class="form-control inputBx" name="address" value="{{$delivery_address->address}}" placeholder="Enter your address" type="text"/>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label>City</label>
-                                                    <input type="text" class="form-control inputBx" value="{{$delivery_address->city}}" placeholder="" name="city">
+                                                    <input type="text" id="city" name="city" class="form-control inputBx" value="{{$delivery_address->city}}" placeholder="">
                                                 </div>
                                             </div>
                                             <div class="custom-row">
                                                 <div class="col-sm-6">
-                                                    <label>Post code</label>
-                                                    <input type="text" class="form-control inputBx" value="{{$delivery_address->postcode}}" placeholder="" name="postcode">
+                                                    <label>PostalCode</label>
+                                                    <input id="postalcode" name="postalcode" type="text" class="form-control inputBx" value="{{$delivery_address->postcode}}" placeholder="">
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label>Country</label>
+                                                    <label>CountryName</label>
                                                     <!-- <input type="text" class="inputBx" value="" placeholder="" name="country"> -->
                                                     <div class="selectBx styled-dropdown">
-                                                        <select name="country">
+                                                        <select name="country" id="countryName">
                                                             <!-- <option selected disabled></option> -->
                                                             @if($countries)
                                                             @foreach($countries as $country)
@@ -233,78 +236,26 @@
     </div>
 </section><!--// End Total Fundraised  Container -->
 
+<script type="text/javascript" src="https://api.addressnow.co.uk/js/addressnow-2.20.min.js?key=tt85-jm37-zc49-nc97"></script>
 <script>
-// This sample uses the Autocomplete widget to help the user select a
-// place, then it retrieves the address components associated with that
-// place, and then it populates the form fields with those details.
-// This sample requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script
-// src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+    addressNow.listen('load', function(control) {
+        control.listen("populate", function(address) {
+            console.log(address.CountryName);
+            document.getElementById('address').value = (address.Line1 + ' ' + address.Line2);
+            document.getElementById('postalcode').value = address.PostalCode;
+            document.getElementById('city').value = address.City;
 
-var placeSearch, autocomplete;
+            var select = document.getElementById('countryName');
 
-var componentForm = {
-  street_number: 'short_name',
-  route: 'long_name',
-  locality: 'long_name',
-  administrative_area_level_1: 'short_name',
-  country: 'long_name',
-  postal_code: 'short_name'
-};
-
-function initAutocomplete() {
-  // Create the autocomplete object, restricting the search predictions to
-  // geographical location types.
-  autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('autocomplete'), {types: ['geocode']});
-
-  // Avoid paying for data that you don't need by restricting the set of
-  // place fields that are returned to just the address components.
-  autocomplete.setFields(['address_component']);
-
-  // When the user selects an address from the drop-down, populate the
-  // address fields in the form.
-  autocomplete.addListener('place_changed', fillInAddress);
-}
-
-function fillInAddress() {
-  // Get the place details from the autocomplete object.
-  var place = autocomplete.getPlace();
-
-  for (var component in componentForm) {
-    document.getElementById(component).value = '';
-    document.getElementById(component).disabled = false;
-  }
-
-  // Get each component of the address from the place details,
-  // and then fill-in the corresponding field on the form.
-  for (var i = 0; i < place.address_components.length; i++) {
-    var addressType = place.address_components[i].types[0];
-    if (componentForm[addressType]) {
-      var val = place.address_components[i][componentForm[addressType]];
-      document.getElementById(addressType).value = val;
-    }
-  }
-}
-
-// Bias the autocomplete object to the user's geographical location,
-// as supplied by the browser's 'navigator.geolocation' object.
-function geolocate() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var geolocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      var circle = new google.maps.Circle(
-          {center: geolocation, radius: position.coords.accuracy});
-      autocomplete.setBounds(circle.getBounds());
+            for ( var i = 0, l = select.options.length, o; i < l; i++ )
+            {
+                o = select.options[i];
+                if ( address.CountryName == o.text )
+                {
+                    o.selected = true;
+                }
+            }
+        });
     });
-  }
-}
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYx_t3sZg0aVL2ZPf_dLZ8j9q6VfIrW9Q&libraries=places&sessiontoken=<?php echo str_random(32); ?>&callback=initAutocomplete"
-    async defer></script>
-
 @endsection
