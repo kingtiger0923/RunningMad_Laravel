@@ -3,7 +3,7 @@
 @section('content')
 <!--Begin Banner Section-->
 
-<link rel="stylesheet" type="text/css" href="https://api.addressnow.co.uk/css/addressnow-2.20.min.css?key=tt85-jm37-zc49-nc97" />
+<link rel="stylesheet" type="text/css" href="https://api.addressnow.co.uk/css/addressnow-2.20.min.css?key=xt34-xr77-xm66-jz59" />
 <section class="single-banner small-banner clear">
     <div class="container">
         <div class="row">
@@ -236,7 +236,7 @@
     </div>
 </section><!--// End Total Fundraised  Container -->
 
-<script type="text/javascript" src="https://api.addressnow.co.uk/js/addressnow-2.20.min.js?key=tt85-jm37-zc49-nc97"></script>
+<script type="text/javascript" src="https://api.addressnow.co.uk/js/addressnow-2.20.min.js?key=xt34-xr77-xm66-jz59"></script>
 <script>
     addressNow.listen('load', function(control) {
         control.listen("populate", function(address) {

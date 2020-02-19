@@ -6,7 +6,7 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
 
 @section('content')
 
-<link rel="stylesheet" type="text/css" href="https://api.addressnow.co.uk/css/addressnow-2.20.min.css?key=tt85-jm37-zc49-nc97" />
+<link rel="stylesheet" type="text/css" href="https://api.addressnow.co.uk/css/addressnow-2.20.min.css?key=nn43-tk88-pr87-jd69" />
 <!--Begin Banner Section-->
 <section class="single-banner clear" style="background: url({{URL::to('/')}}/storage/app/public/{{setting('general.banner_img')}}) no-repeat center 0; background-size: cover;">
     <div class="container">
@@ -120,25 +120,33 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                 @if(isset($billing_address)) 
                                 @foreach($billing_address as $key => $value)
                                 <div class="custom-row">
+                                    <div class="col-sm-12">
+                                        <div class="title-row">
+                                            <h2>Your Address</h2>
+                                            <input id="autocomplete" autocomplete="off" class="form-control inputBx billing" name="autocomplete" placeholder="Search your address" type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="custom-row">
                                     <div class="col-sm-6">
                                         <label>Street address </label>
-                                        <input type="text" class="inputBx" placeholder="" name="address" value="{{$value->address}}" required>
+                                        <input id="billing_address" type="text" class="inputBx" placeholder="" name="address" value="{{$value->address}}" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <label>City</label>
-                                        <input type="text" class="inputBx" placeholder="" name="city" value="{{$value->city}}" required>
+                                        <input id="billing_city" type="text" class="inputBx" placeholder="" name="city" value="{{$value->city}}" required>
                                     </div>
                                 </div>
                                 <div class="custom-row">
                                     <div class="col-sm-6">
                                         <label>Post code</label>
-                                        <input type="text" class="inputBx" placeholder="" name="postcode" value="{{$value->postcode}}" required>
+                                        <input id="billing_postalcode" type="text" class="inputBx" placeholder="" name="postcode" value="{{$value->postcode}}" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <label>Country</label>
                                         <!-- <input type="text" class="inputBx" value="" placeholder="" name="country"> -->
                                         <div class="selectBx styled-dropdown">
-                                            <select name="country">
+                                            <select name="country" id="billing_countryName">
                                                 @if($countries)
                                                 @foreach($countries as $country)
                                                 <option value="{{$country}}" @php if($country == $value->country) echo "selected"; @endphp>{{$country}}</option>
@@ -152,25 +160,33 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                 @endforeach
                                 @else 
                                 <div class="custom-row">
+                                    <div class="col-sm-12">
+                                        <div class="title-row">
+                                            <h2>Your Address</h2>
+                                            <input id="autocomplete" autocomplete="off" class="form-control inputBx billing" name="autocomplete" placeholder="Search your address" type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="custom-row">
                                     <div class="col-sm-6">
                                         <label>Delivery address</label>
-                                        <input type="text" class="inputBx" value="" placeholder="" name="address" required>
+                                        <input id="billing_address" type="text" class="inputBx" value="" placeholder="" name="address" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <label>City</label>
-                                        <input type="text" class="inputBx" value="" placeholder="" name="city" required>
+                                        <input id="billing_city" type="text" class="inputBx" value="" placeholder="" name="city" required>
                                     </div>
                                 </div>
                                 <div class="custom-row">
                                     <div class="col-sm-6">
                                         <label>Post code</label>
-                                        <input type="text" class="inputBx" value="" placeholder="" name="postcode" required>
+                                        <input id="billing_postalcode" type="text" class="inputBx" value="" placeholder="" name="postcode" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <label>Country</label>
                                         <!-- <input type="text" class="inputBx" value="" placeholder="" name="country"> -->
                                         <div class="selectBx styled-dropdown">
-                                            <select name="country">
+                                            <select name="country" id="billing_countryName">
                                                 <!-- <option selected disabled></option> -->
                                                 @if($countries)
                                                 @foreach($countries as $country)
@@ -212,29 +228,29 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                             <div class="col-sm-12">
                                                 <div class="title-row">
                                                     <h2>Your Address</h2>
-                                                    <input id="autocomplete" autocomplete="true" class="form-control inputBx" name="autocomplete" placeholder="Search your address" type="text"/>
+                                                    <input id="autocomplete" autocomplete="off" class="form-control inputBx delivery" name="autocomplete" placeholder="Search your address" type="text"/>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="custom-row">
                                             <div class="col-sm-6">
                                                 <label>Shipping address</label>
-                                                <input id="address" type="text" class="inputBx" value="" placeholder="" name="shipping_address">
+                                                <input id="shipping_address" type="text" class="inputBx" value="" placeholder="" name="shipping_address">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>City</label>
-                                                <input id="city" type="text" class="inputBx" value="" placeholder="" name="shipping_city">
+                                                <input id="shipping_city" type="text" class="inputBx" value="" placeholder="" name="shipping_city">
                                             </div>
                                         </div>
                                         <div class="custom-row">
                                             <div class="col-sm-6">
                                                 <label>Post code</label>
-                                                <input id="postalcode" type="text" class="inputBx" value="" placeholder="" name="shipping_postcode">
+                                                <input id="shipping_postcode" type="text" class="inputBx" value="" placeholder="" name="shipping_postcode">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>Country</label>
                                                 <div class="selectBx styled-dropdown">
-                                                    <select name="shipping_country" id="countryName">
+                                                    <select name="shipping_country" id="shipping_country">
                                                         @if($countries)
                                                         @foreach($countries as $country)
                                                         <option value="{{$country}}">{{$country}}</option>
@@ -487,26 +503,77 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
     </div>
 </section><!--// End Total Fundraised  Container -->
 
-<script type="text/javascript" src="https://api.addressnow.co.uk/js/addressnow-2.20.min.js?key=tt85-jm37-zc49-nc97"></script>
 <script>
-    addressNow.listen('load', function(control) {
-        control.listen("populate", function(address) {
-            console.log(address.CountryName);
-            document.getElementById('address').value = (address.Line1 + ' ' + address.Line2);
-            document.getElementById('postalcode').value = address.PostalCode;
+    var addressNow_Billing = 0, addressNow_Delivery = 0;
 
-            var select = document.getElementById('countryName');
+    $(".billing").on('focus', function() { console.log("Focus_Bill");addressNow_Billing = 1; addressNow_Delivery = 0;});
+    $(".delivery").on('focus', function() { console.log("Focus_Deliv");addressNow_Billing = 0; addressNow_Delivery = 1;});
 
-            for ( var i = 0, l = select.options.length, o; i < l; i++ )
-            {
-                o = select.options[i];
-                if ( address.CountryName == o.text )
-                {
-                    o.selected = true;
-                }
-            }
+    document.getElementsByClassName('billing')[0].id = 'autocomplete';
+    document.getElementsByClassName('delivery')[0].id = 'autocomplete1';
+
+    jQuery.loadScript = function (url, callback) {
+        jQuery.ajax({
+            url: url,
+            dataType: 'script',
+            success: callback,
+            async: true
+        });
+    }
+
+    $.loadScript('https://api.addressnow.co.uk/js/addressnow-2.20.min.js?key=gn51-ap37-ru58-ta87', function(){
+        addressNow.listen('load', function(control) {
+            control.listen("populate", function(address) {
+            });
         });
     });
+</script>
+
+<script>
+    document.getElementsByClassName('billing')[0].id = 'autocomplete1';
+    document.getElementsByClassName('delivery')[0].id = 'autocomplete';
+
+    $.loadScript('https://api.addressnow.co.uk/js/addressnow-2.20.min.js?key=nn43-tk88-pr87-jd69', function(){
+
+        // console.log(addressNow_Delivery);
+        addressNow.listen('load', function(control) {
+            control.listen("populate", function(address) {
+                if( addressNow_Delivery === 1 ) {
+                    console.log("12312 : Delivery");
+                    document.getElementById('shipping_address').value = (address.Line1 + ' ' + address.Line2);
+                    document.getElementById('shipping_postcode').value = address.PostalCode;
+                    document.getElementById('shipping_city').value = address.City;
+                    var select = document.getElementById('shipping_country');
+                    for ( var i = 0, l = select.options.length, o; i < l; i++ )
+                    {
+                        o = select.options[i];
+                        if ( address.CountryName == o.text )
+                        {
+                            o.selected = true;
+                        }
+                    }
+                    
+                } else {
+                    console.log("12312 : Billing");
+                    document.getElementById('billing_address').value = (address.Line1 + ' ' + address.Line2);
+                    document.getElementById('billing_postalcode').value = address.PostalCode;
+                    document.getElementById('billing_city').value = address.City;
+                    var select = document.getElementById('billing_countryName');
+                    for ( var i = 0, l = select.options.length, o; i < l; i++ )
+                    {
+                        o = select.options[i];
+                        if ( address.CountryName == o.text )
+                        {
+                            o.selected = true;
+                        }
+                    }
+                }
+            });
+        });
+    });
+    // console.log( addressNow_Billing );
+    // console.log( addressNow_Delivery );
+
 </script>
 
 @endsection
