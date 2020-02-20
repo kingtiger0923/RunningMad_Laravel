@@ -89,7 +89,7 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('shop', array('uses'=>'ShopController@index'));
 
 // Shop Single Page
-Route::get('shop-single', array('uses'=>'ShopController@show'));
+Route::get('shop/{slug}', array('uses'=>'ShopController@show'));
 
 // Google Login
 Route::get('login/google', 'Auth\GoogleController@redirectToGoogle');

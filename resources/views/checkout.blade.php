@@ -128,9 +128,15 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                     </div>
                                 </div>
                                 <div class="custom-row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <label>Street address </label>
                                         <input id="billing_address" type="text" class="inputBx" placeholder="" name="address" value="{{$value->address}}" required>
+                                    </div>
+                                </div>
+                                <div class="custom-row">
+                                    <div class="col-sm-6">
+                                        <label>County</label>
+                                        <input id="billing_county" type="text" class="inputBx" placeholder="" name="county" value="" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <label>City</label>
@@ -168,9 +174,15 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                     </div>
                                 </div>
                                 <div class="custom-row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <label>Delivery address</label>
-                                        <input id="billing_address" type="text" class="inputBx" value="" placeholder="" name="address" required>
+                                        <input id="billing_address" type="text" class="inputBx" placeholder="" name="address" value="{{$value->address}}" required>
+                                    </div>
+                                </div>
+                                <div class="custom-row">
+                                    <div class="col-sm-6">
+                                        <label>County</label>
+                                        <input id="billing_county" type="text" class="inputBx" value="" placeholder="" name="county" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <label>City</label>
@@ -233,9 +245,15 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                             </div>
                                         </div>
                                         <div class="custom-row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12">
                                                 <label>Shipping address</label>
                                                 <input id="shipping_address" type="text" class="inputBx" value="" placeholder="" name="shipping_address">
+                                            </div>
+                                        </div>
+                                        <div class="custom-row">
+                                            <div class="col-sm-6">
+                                                <label>County</label>
+                                                <input id="shipping_county" type="text" class="inputBx" value="" placeholder="" name="shipping_county">
                                             </div>
                                             <div class="col-sm-6">
                                                 <label>City</label>
@@ -506,8 +524,8 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
 <script>
     var addressNow_Billing = 0, addressNow_Delivery = 0;
 
-    $(".billing").on('focus', function() { console.log("Focus_Bill");addressNow_Billing = 1; addressNow_Delivery = 0;});
-    $(".delivery").on('focus', function() { console.log("Focus_Deliv");addressNow_Billing = 0; addressNow_Delivery = 1;});
+    $(".billing").on('focus', function() { addressNow_Billing = 1; addressNow_Delivery = 0;});
+    $(".delivery").on('focus', function() { addressNow_Billing = 0; addressNow_Delivery = 1;});
 
     document.getElementsByClassName('billing')[0].id = 'autocomplete';
     document.getElementsByClassName('delivery')[0].id = 'autocomplete1';
@@ -535,12 +553,18 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
 
     $.loadScript('https://api.addressnow.co.uk/js/addressnow-2.20.min.js?key=nn43-tk88-pr87-jd69', function(){
 
-        // console.log(addressNow_Delivery);
         addressNow.listen('load', function(control) {
             control.listen("populate", function(address) {
                 if( addressNow_Delivery === 1 ) {
-                    console.log("12312 : Delivery");
-                    document.getElementById('shipping_address').value = (address.Line1 + ' ' + address.Line2);
+                    document.getElementById('shipping_address').value = '';
+                    if( address.Company != '' ) document.getElementById('shipping_address').value += (address.Company);
+                    if( address.Line1   != '' && address.Company == '' ) document.getElementById('shipping_address').value += (address.Line1);
+                    if( address.Line1   != '' && address.Company != '' ) document.getElementById('shipping_address').value += (' ' + address.Line1);
+                    if( address.Line2   != '' ) document.getElementById('shipping_address').value += (' ' + address.Line2);
+                    if( address.Line3   != '' ) document.getElementById('shipping_address').value += (' ' + address.Line3);
+                    if( address.Line4   != '' ) document.getElementById('shipping_address').value += (' ' + address.Line4);
+                    if( address.Line5   != '' ) document.getElementById('shipping_address').value += (' ' + address.Line5);
+                    document.getElementById('shipping_county').value = address.ProvinceName;
                     document.getElementById('shipping_postcode').value = address.PostalCode;
                     document.getElementById('shipping_city').value = address.City;
                     var select = document.getElementById('shipping_country');
@@ -554,8 +578,15 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                     }
                     
                 } else {
-                    console.log("12312 : Billing");
-                    document.getElementById('billing_address').value = (address.Line1 + ' ' + address.Line2);
+                    document.getElementById('billing_address').value = '';
+                    if( address.Company != '' ) document.getElementById('billing_address').value += (address.Company);
+                    if( address.Line1   != '' && address.Company == '' ) document.getElementById('billing_address').value += (address.Line1);
+                    if( address.Line1   != '' && address.Company != '' ) document.getElementById('billing_address').value += (' ' + address.Line1);
+                    if( address.Line2   != '' ) document.getElementById('billing_address').value += (' ' + address.Line2);
+                    if( address.Line3   != '' ) document.getElementById('billing_address').value += (' ' + address.Line3);
+                    if( address.Line4   != '' ) document.getElementById('billing_address').value += (' ' + address.Line4);
+                    if( address.Line5   != '' ) document.getElementById('billing_address').value += (' ' + address.Line5);
+                    document.getElementById('billing_county').value = address.ProvinceName;
                     document.getElementById('billing_postalcode').value = address.PostalCode;
                     document.getElementById('billing_city').value = address.City;
                     var select = document.getElementById('billing_countryName');
@@ -571,8 +602,6 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
             });
         });
     });
-    // console.log( addressNow_Billing );
-    // console.log( addressNow_Delivery );
 
 </script>
 

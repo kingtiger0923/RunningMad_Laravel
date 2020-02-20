@@ -25,12 +25,12 @@
                             <li class="col-sm-4 campaign-wrap">
                                 <div class="campaign-item-wrap campaignequalheight">
                                     <div class="thumb-wrap">
-                                        <a href="{{url('/shop-single')}}"><img src="{{URL::to('/')}}/storage/app/public/{{$product->thumbnail}}" alt="{{$product->title}}"></a>
+                                        <a href="{{url('/shop')}}/{{$product->slug}}"><img src="{{URL::to('/')}}/storage/app/public/{{$product->thumbnail}}" alt="{{$product->title}}"></a>
                                     </div>
                                     <div class="campaign-item-content">
                                         <div class="campaign-title">
                                             <h3>
-                                                <a href="{{url('shop-single')}}">{{$product->title}}</a>
+                                                <a href="{{url('/shop')}}/{{$product->slug}}">{{$product->title}}</a>
                                             </h3>
                                             <?php echo  str_limit($product->description, $limit = 100, $end = '...'); ?>
                                         </div>
@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="bottom-content">
                                         <div class="column">
-                                            <a href="{{url('shop-single')}}" class="info-btn btnslideL">More info</a>
+                                            <a href="{{url('/shop')}}/{{$product->slug}}" class="info-btn btnslideL">More info</a>
                                         </div>
                                         <div class="column">
                                             <!-- <a href="#" class="cart-btn btnslideL">Add to cart</a> -->

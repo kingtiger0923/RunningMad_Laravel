@@ -156,9 +156,15 @@
                                                 </div>
                                             </div>
                                             <div class="custom-row">
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-12">
                                                     <label>Address</label>
                                                     <input id="address" class="form-control inputBx" name="address" value="{{$delivery_address->address}}" placeholder="Enter your address" type="text"/>
+                                                </div>
+                                            </div>
+                                            <div class="custom-row">
+                                                <div class="col-sm-6">
+                                                    <label>County</label>
+                                                    <input id="county" class="form-control inputBx" name="county" value="" placeholder="Enter your county name" type="text"/>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label>City</label>
@@ -240,8 +246,16 @@
 <script>
     addressNow.listen('load', function(control) {
         control.listen("populate", function(address) {
-            console.log(address.CountryName);
-            document.getElementById('address').value = (address.Line1 + ' ' + address.Line2);
+            console.log(address);
+            document.getElementById('address').value = '';
+            if( address.Company != '' ) document.getElementById('address').value += (address.Company);
+            if( address.Line1   != '' && address.Company == '' ) document.getElementById('address').value += (address.Line1);
+            if( address.Line1   != '' && address.Company != '' ) document.getElementById('address').value += (' ' + address.Line1);
+            if( address.Line2   != '' ) document.getElementById('address').value += (' ' + address.Line2);
+            if( address.Line3   != '' ) document.getElementById('address').value += (' ' + address.Line3);
+            if( address.Line4   != '' ) document.getElementById('address').value += (' ' + address.Line4);
+            if( address.Line5   != '' ) document.getElementById('address').value += (' ' + address.Line5);
+            document.getElementById('county').value = address.ProvinceName;
             document.getElementById('postalcode').value = address.PostalCode;
             document.getElementById('city').value = address.City;
 

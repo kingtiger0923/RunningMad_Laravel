@@ -47,9 +47,9 @@ class ShopController extends Controller
     /**
     * Loading single order
     */
-    public function show()
+    public function show($slug)
     { 
-        $product = Product::where('status', '=', 'PUBLISHED')->firstOrFail();
+        $product = Product::where('slug', '=', $slug)->firstOrFail();
         return view('shop-single')->with(array('product'=> $product ));
     }
 

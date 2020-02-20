@@ -9,6 +9,6 @@ class Customer extends Model
 {
     protected $fillable = [
         'user_id', 'address', 'city', 'postcode',
-        'country', 'phone'
+        'country', 'phone', 'county'
     ];
 }
