@@ -136,7 +136,7 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                 <div class="custom-row">
                                     <div class="col-sm-6">
                                         <label>County</label>
-                                        <input id="billing_county" type="text" class="inputBx" placeholder="" name="county" value="" required>
+                                        <input id="billing_county" type="text" class="inputBx" placeholder="" name="county" value="{{$value->county}}" required>
                                     </div>
                                     <div class="col-sm-6">
                                         <label>City</label>
@@ -176,7 +176,7 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                 <div class="custom-row">
                                     <div class="col-sm-12">
                                         <label>Delivery address</label>
-                                        <input id="billing_address" type="text" class="inputBx" placeholder="" name="address" value="{{$value->address}}" required>
+                                        <input id="billing_address" type="text" class="inputBx" placeholder="" name="address" value="" required>
                                     </div>
                                 </div>
                                 <div class="custom-row">

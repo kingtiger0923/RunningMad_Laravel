@@ -78,7 +78,7 @@ class DashboardController extends Controller
                 if ($validator->passes()) {
                     User::where('id', $user->id)->update(['name' => $data['name'],'email' => $data['email']]); 
                     error_log($data['address']);
-                    Customer::where('user_id', $user->id)->update([ 'address' => $data['address'], 'city' => $data['city'],'postcode' => $data['postalcode'],'country' => $data['country'],'phone' => $data['phone']]);
+                    Customer::where('user_id', $user->id)->update([ 'address' => $data['address'], 'county' => $data['county'], 'city' => $data['city'],'postcode' => $data['postalcode'],'country' => $data['country'],'phone' => $data['phone']]);
                 }
                 return response()->json(['error'=>$validator->errors()->all()]);
             } else {
@@ -91,7 +91,7 @@ class DashboardController extends Controller
                 if ($validator->passes()) {
                     error_log("Pass the validation");
                     User::where('id', $user->id)->update(['name' => $data['name'],'email' => $data['email'], 'password' => bcrypt($data['password'])]); 
-                    Customer::where('user_id', $user->id)->update([ 'address' => $data['address'], 'city' => $data['city'],'postcode' => $data['postalcode'],'country' => $data['country'],'phone' => $data['phone']]);
+                    Customer::where('user_id', $user->id)->update([ 'address' => $data['address'], 'county' => $data['county'], 'city' => $data['city'],'postcode' => $data['postalcode'],'country' => $data['country'],'phone' => $data['phone']]);
                 }
                 return response()->json(['error'=>$validator->errors()->all()]);
             }
