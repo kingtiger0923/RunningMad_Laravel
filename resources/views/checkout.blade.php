@@ -135,12 +135,12 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                 </div>
                                 <div class="custom-row">
                                     <div class="col-sm-6">
-                                        <label>County</label>
-                                        <input id="billing_county" type="text" class="inputBx" placeholder="" name="county" value="{{$value->county}}" required>
-                                    </div>
-                                    <div class="col-sm-6">
                                         <label>City</label>
                                         <input id="billing_city" type="text" class="inputBx" placeholder="" name="city" value="{{$value->city}}" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>County</label>
+                                        <input id="billing_county" type="text" class="inputBx" placeholder="" name="county" value="{{$value->county}}" required>
                                     </div>
                                 </div>
                                 <div class="custom-row">
@@ -181,12 +181,12 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                 </div>
                                 <div class="custom-row">
                                     <div class="col-sm-6">
-                                        <label>County</label>
-                                        <input id="billing_county" type="text" class="inputBx" value="" placeholder="" name="county" required>
-                                    </div>
-                                    <div class="col-sm-6">
                                         <label>City</label>
                                         <input id="billing_city" type="text" class="inputBx" value="" placeholder="" name="city" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>County</label>
+                                        <input id="billing_county" type="text" class="inputBx" value="" placeholder="" name="county" required>
                                     </div>
                                 </div>
                                 <div class="custom-row">
@@ -252,12 +252,12 @@ $countries = array('United Kingdom' =>'United Kingdom' ,'Afganistan' =>'Afganist
                                         </div>
                                         <div class="custom-row">
                                             <div class="col-sm-6">
-                                                <label>County</label>
-                                                <input id="shipping_county" type="text" class="inputBx" value="" placeholder="" name="shipping_county">
-                                            </div>
-                                            <div class="col-sm-6">
                                                 <label>City</label>
                                                 <input id="shipping_city" type="text" class="inputBx" value="" placeholder="" name="shipping_city">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label>County</label>
+                                                <input id="shipping_county" type="text" class="inputBx" value="" placeholder="" name="shipping_county">
                                             </div>
                                         </div>
                                         <div class="custom-row">

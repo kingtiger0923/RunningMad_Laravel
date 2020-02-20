@@ -163,12 +163,12 @@
                                             </div>
                                             <div class="custom-row">
                                                 <div class="col-sm-6">
-                                                    <label>County</label>
-                                                    <input id="county" class="form-control inputBx" name="county" value="{{$delivery_address->county}}" placeholder="Enter your county name" type="text"/>
-                                                </div>
-                                                <div class="col-sm-6">
                                                     <label>City</label>
                                                     <input type="text" id="city" name="city" class="form-control inputBx" value="{{$delivery_address->city}}" placeholder="">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label>County</label>
+                                                    <input id="county" class="form-control inputBx" name="county" value="{{$delivery_address->county}}" placeholder="Enter your county name" type="text"/>
                                                 </div>
                                             </div>
                                             <div class="custom-row">
